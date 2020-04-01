@@ -5,7 +5,8 @@ import 'package:kelimeapp/models/WordModel.dart';
 
 class WordDetail extends StatefulWidget {
   final WordModel word;
-  WordDetail(this.word);
+  String language;
+  WordDetail(this.word,this.language);
 
   @override
   _WordDetailState createState() => _WordDetailState();
@@ -29,7 +30,7 @@ class _WordDetailState extends State<WordDetail> {
   void getData() {
     var dbFuture = dbHelper.initializeDb();
     dbFuture.then((result) {
-      var listFuture = dbHelper.getMyList();
+      var listFuture = dbHelper.getMyList(widget.language);
       listFuture.then((data) {
         List<WordModel> myListData = new List<WordModel>();
         for (var i = 0; i < data.length; i++) {
@@ -294,7 +295,7 @@ class _WordDetailState extends State<WordDetail> {
       wordModel1.sentence = widget.word.sentence;
       wordModel1.sentenceMean = widget.word.sentenceMean;
 
-      int result = await dbHelper.insert(wordModel1);
+      int result = await dbHelper.insert(wordModel1,widget.language);
       if (result != 0) {
         final snackBar = SnackBar(
           content: Text(

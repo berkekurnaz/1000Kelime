@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:kelimeapp/database/DbHelper.dart';
 import 'package:kelimeapp/models/WordModel.dart';
 import 'package:kelimeapp/views/home/storageWordDetail.dart';
-import 'package:kelimeapp/views/shared/myAppBar.dart';
 
 class StorageWordsList extends StatefulWidget {
+
+  String language;
+
+  StorageWordsList(this.language);
+
   @override
   _StorageWordsListState createState() => _StorageWordsListState();
 }
@@ -23,7 +27,7 @@ class _StorageWordsListState extends State<StorageWordsList> {
   void getData() {
     var dbFuture = dbHelper.initializeDb();
     dbFuture.then((result) {
-      var listFuture = dbHelper.getMyList();
+      var listFuture = dbHelper.getMyList(widget.language);
       listFuture.then((data) {
         List<WordModel> myListData = new List<WordModel>();
         for (var i = 0; i < data.length; i++) {
@@ -38,7 +42,7 @@ class _StorageWordsListState extends State<StorageWordsList> {
 
   void goToDetail(WordModel word) async {
     bool result = await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => StorageWordDetail(word)));
+        MaterialPageRoute(builder: (context) => StorageWordDetail(word,widget.language)));
     if (result != null) {
       if (result) {
         getData();

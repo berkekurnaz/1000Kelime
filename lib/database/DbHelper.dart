@@ -29,27 +29,27 @@ class DbHelper{
   }
 
   void _createDb(Database db, int version) async{
-    await db.execute("Create Table Words (Id integer primary key, word text, mean text, sentence text, sentenceMean text)");
+    await db.execute("Create Table Words (Id integer primary key, word text, mean text, sentence text, sentenceMean text, category text)");
   }
 
   /* Insert Islemi Yazilmasi */
-  Future<int> insert(WordModel wordModel) async{
+  Future<int> insert(WordModel wordModel, String category) async{
     Database db = await this.db;
-    var result = await db.rawInsert("Insert Into Words (word,mean,sentence,sentenceMean) Values ('${wordModel.word}','${wordModel.mean}','${wordModel.sentence}','${wordModel.sentenceMean}')");
+    var result = await db.rawInsert("Insert Into Words (word,mean,sentence,sentenceMean,category) Values ('${wordModel.word}','${wordModel.mean}','${wordModel.sentence}','${wordModel.sentenceMean}','${category}')");
     return result;
   }
 
   /* Delete Islemi Yazilmasi */
-  Future<int> delete(String word) async{
+  Future<int> delete(String word,String category) async{
     Database db = await this.db;
-    var result = await db.rawDelete("Delete From Words where word = '$word'");
+    var result = await db.rawDelete("Delete From Words where word = '$word' and category = '$category'");
     return result;
   }
 
   /* Listeleme Islemi Yazilmasi */
-  Future<List> getMyList() async{
+  Future<List> getMyList(String category) async{
     Database db = await this.db;
-    var result = await db.rawQuery("Select * From Words");
+    var result = await db.rawQuery("Select * From Words where category = '$category'");
     return result;
   }
 

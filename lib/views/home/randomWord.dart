@@ -8,7 +8,8 @@ import 'package:kelimeapp/models/WordModel.dart';
 
 class RandomWord extends StatefulWidget {
   final List<WordModel> words;
-  RandomWord(this.words);
+  String language;
+  RandomWord(this.words,this.language);
 
   @override
   _RandomWordState createState() => _RandomWordState();
@@ -42,7 +43,7 @@ class _RandomWordState extends State<RandomWord> {
   void getData() {
     var dbFuture = dbHelper.initializeDb();
     dbFuture.then((result) {
-      var listFuture = dbHelper.getMyList();
+      var listFuture = dbHelper.getMyList(widget.language);
       listFuture.then((data) {
         List<WordModel> myListData = new List<WordModel>();
         for (var i = 0; i < data.length; i++) {
@@ -165,7 +166,7 @@ class _RandomWordState extends State<RandomWord> {
       wordModel1.sentence = wordModel.sentence;
       wordModel1.sentenceMean = wordModel.sentenceMean;
 
-      int result = await dbHelper.insert(wordModel1);
+      int result = await dbHelper.insert(wordModel1,widget.language);
       if (result != 0) {
         final snackBar = SnackBar(
           content: Text(

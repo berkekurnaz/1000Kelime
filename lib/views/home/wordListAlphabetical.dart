@@ -5,15 +5,15 @@ import 'package:kelimeapp/views/shared/myAppBar.dart';
 
 class WordListAlphabetical extends StatefulWidget {
   final List<WordModel> words;
-
-  WordListAlphabetical(this.words);
+  String language;
+  WordListAlphabetical(this.words,this.language);
 
   @override
   _WordListAlphabeticalState createState() => _WordListAlphabeticalState();
 }
 
 class _WordListAlphabeticalState extends State<WordListAlphabetical> {
-  var alphabeticalList = ["a", "b", "c", "d", "e"];
+  var alphabeticalList = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
   @override
   void initState() {
@@ -48,7 +48,7 @@ class _WordListAlphabeticalState extends State<WordListAlphabetical> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => WordListAlphabeticalList(wordsList)),
+                builder: (context) => WordListAlphabeticalList(wordsList,widget.language)),
           );
         },
       ),

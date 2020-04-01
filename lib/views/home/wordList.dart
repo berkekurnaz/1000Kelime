@@ -6,8 +6,8 @@ import 'package:kelimeapp/views/shared/myAppBar.dart';
 class WordList extends StatefulWidget {
 
   final List<WordModel> words;
-
-  WordList(this.words);
+  String language;
+  WordList(this.words,this.language);
 
   @override
   _WordListState createState() => _WordListState();
@@ -43,7 +43,7 @@ class _WordListState extends State<WordList> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => WordDetail(wordModel)),
+            MaterialPageRoute(builder: (context) => WordDetail(wordModel,widget.language)),
           );
         },
       ),

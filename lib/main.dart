@@ -15,9 +15,8 @@ void main(){
       ),
     routes: {
       "/homePage": (context) => HomePage(null),
-      "/wordList": (context) => WordList(null),
+      "/wordList": (context) => WordList(null,null),
       "/selectLanguage": (context) => SelectLanguage(),
-      "/storageWordsList": (context) => StorageWordsList(),
     },
   ));
 }

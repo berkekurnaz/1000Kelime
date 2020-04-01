@@ -6,7 +6,8 @@ import 'package:kelimeapp/views/home/storageWordsList.dart';
 
 class StorageWordDetail extends StatefulWidget {
   final WordModel word;
-  StorageWordDetail(this.word);
+  String language;
+  StorageWordDetail(this.word,this.language);
 
   @override
   _StorageWordDetailState createState() => _StorageWordDetailState();
@@ -30,7 +31,7 @@ class _StorageWordDetailState extends State<StorageWordDetail> {
   void getData() {
     var dbFuture = dbHelper.initializeDb();
     dbFuture.then((result) {
-      var listFuture = dbHelper.getMyList();
+      var listFuture = dbHelper.getMyList(widget.language);
       listFuture.then((data) {
         List<WordModel> myListData = new List<WordModel>();
         for (var i = 0; i < data.length; i++) {
@@ -270,7 +271,7 @@ class _StorageWordDetailState extends State<StorageWordDetail> {
 
   void deleteWord() async {
     print("${wordsStorage.length} ***********************");
-    int result = await dbHelper.delete(widget.word.word);
+    int result = await dbHelper.delete(widget.word.word,widget.language);
     if (result != 0) {
       Navigator.pushNamed(context, "/storageWordsList");
     }
