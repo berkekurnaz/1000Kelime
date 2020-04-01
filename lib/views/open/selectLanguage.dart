@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kelimeapp/views/home/homePage.dart';
+import 'package:kelimeapp/views/open/landingPage.dart';
 import 'package:kelimeapp/views/shared/myAppBar.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SelectLanguage extends StatefulWidget {
   @override
@@ -9,23 +11,61 @@ class SelectLanguage extends StatefulWidget {
 }
 
 class _SelectLanguageState extends State<SelectLanguage> {
+  Future<int> _checkIsLandingPageView() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLandingPageView = prefs.getBool('isLandingPageView');
+    print("COm: $isLandingPageView");
+    if (isLandingPageView == false) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LandingPage()),
+      );
+    }
+    return 1;
+  }
+
+  Future<int> _fillIsLandingPage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLandingPageView = prefs.getBool('isLandingPageView');
+    if (isLandingPageView == null) {
+      await prefs.setBool('isLandingPageView', false);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fillIsLandingPage().then((value) {
+      _checkIsLandingPageView().then((value) {
+        print("Kayit Getirildi");
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(236, 240, 241,1.0),
+      backgroundColor: Color.fromRGBO(236, 240, 241, 1.0),
       body: ListView(
         children: <Widget>[
           ClipPath(
             clipper: MyClipper(),
             child: Container(
-            height: 250,
-            decoration: BoxDecoration(
-              color: Colors.red,
+              height: 250,
+              decoration: BoxDecoration(
+                color: Colors.red,
+              ),
+              child: Center(
+                child: Text(
+                  "Öğrenmek İstediğiniz\nDili Seçiniz",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35,
+                      color: Colors.white),
+                ),
+              ),
             ),
-            child: Center(
-              child: Text("Öğrenmek İstediğiniz\nDili Seçiniz",textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold,fontSize: 35,color: Colors.white),),
-            ),
-          ),
           ),
           SizedBox(
             height: 30,
@@ -36,25 +76,23 @@ class _SelectLanguageState extends State<SelectLanguage> {
               GestureDetector(
                 child: languageCard("flag_english.jpg", "İngilizce"),
                 onTap: () {
-                  
                   // Dil Anaekran Gitme
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage("İngilizce")),
+                    MaterialPageRoute(
+                        builder: (context) => HomePage("İngilizce")),
                   );
-
                 },
               ),
               GestureDetector(
                 child: languageCard("flag_spanish.jpg", "İspanyolca"),
                 onTap: () {
-                  
                   // Dil Anaekran Gitme
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage("İspanyolca")),
+                    MaterialPageRoute(
+                        builder: (context) => HomePage("İspanyolca")),
                   );
-
                 },
               ),
             ],
@@ -64,13 +102,13 @@ class _SelectLanguageState extends State<SelectLanguage> {
             children: <Widget>[
               GestureDetector(
                 child: languageCard("flag_german.jpg", "Almanca"),
-                onTap: (){
+                onTap: () {
                   showAlert();
                 },
               ),
               GestureDetector(
                 child: languageCard("flag_french.jpg", "Fransızca"),
-                onTap: (){
+                onTap: () {
                   showAlert();
                 },
               ),
@@ -81,12 +119,13 @@ class _SelectLanguageState extends State<SelectLanguage> {
     );
   }
 
-  void showAlert(){
+  void showAlert() {
     Alert(
       context: context,
       type: AlertType.error,
       title: "Uyarı Mesajı",
-      desc: "Seçmiş Olduğunuz Dil Henüz Eklenmedi. En Yakın Zamanda Bu Dili Eklemiş Olacağız.",
+      desc:
+          "Seçmiş Olduğunuz Dil Henüz Eklenmedi. En Yakın Zamanda Bu Dili Eklemiş Olacağız.",
       buttons: [
         DialogButton(
           child: Text(

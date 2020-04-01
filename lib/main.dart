@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kelimeapp/views/home/homePage.dart';
 import 'package:kelimeapp/views/home/storageWordsList.dart';
 import 'package:kelimeapp/views/home/wordList.dart';
+import 'package:kelimeapp/views/open/landingPage.dart';
 import 'package:kelimeapp/views/open/selectLanguage.dart';
 
 void main(){
