@@ -1,6 +1,6 @@
 # 1000 Kelime 
 
-[![N|Nodejs](https://github.com/berkekurnaz/1000Kelime/tree/master/examples/images/logo.png)]()
+[![N|Nodejs](https://raw.githubusercontent.com/berkekurnaz/1000Kelime/master/examples/images/logo.png)]()
 
 
 Dünya Dillerinde En Sık Kullanılan 1000 Kelimenin Bulunduğu Mobil Uygulama.
@@ -46,8 +46,8 @@ Ayrıca yeni kelimeleri bize aşağıdaki format ile gönderirseniz uygulamanın
 Uygulama içerisinde 'assets/data' klasörü altında saklanan json dosyaları parçalanarak bir liste halinde kullanıcıya gösterilir. Kullanıcı bu kelimeleri kaydetmek istediği zaman sqlite veritabanına başvurulur.
 
 ## Uygulama Görüntüleri
-[![N|Nodejs](https://github.com/berkekurnaz/1000Kelime/tree/master/examples/images/image1.png)]()
-[![N|Nodejs](https://github.com/berkekurnaz/1000Kelime/tree/master/examples/images/image2.png)]()
+[![N|Nodejs](https://raw.githubusercontent.com/berkekurnaz/1000Kelime/master/examples/images/image1.png)]()
+[![N|Nodejs](https://raw.githubusercontent.com/berkekurnaz/1000Kelime/master/examples/images/image2.png)]()
 
 ### Uygulamaya Eklenecekler
  - İngilizce 250 Kelime, İspanyolca 50 Kelime, Almanca 1000 Kelime ve Fransızca 1000 Kelime Eklenecek.
